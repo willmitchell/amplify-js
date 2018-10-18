@@ -78,10 +78,13 @@ export default {
       this.$Amplify.Auth.signIn(this.options.username, this.password)
         .then(data => {
           this.logger.info('sign in success');
-          if (data.challengeName) {
+          if (data.challengeName==='NEW_PASSWORD_REQUIRED') {
+            AmplifyEventBus.$emit('localUser', data);
+            return AmplifyEventBus.$emit('authState', 'newPasswordRequired')
+          } else if (data.challengeName) {
             AmplifyEventBus.$emit('localUser', data);
             return AmplifyEventBus.$emit('authState', 'confirmSignIn')
-          } 
+          }
           return AmplifyEventBus.$emit('authState', 'signedIn')
         })
         .catch(e => this.setError(e));

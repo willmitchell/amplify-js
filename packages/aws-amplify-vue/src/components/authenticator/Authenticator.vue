@@ -14,6 +14,7 @@
 <template>
   <div>
     <amplify-sign-in v-if="displayMap.showSignIn" v-bind:signInConfig="options.signInConfig"></amplify-sign-in>
+    <amplify-sign-in v-if="displayMap.showSignIn" v-bind:signInConfig="options.signInConfig"></amplify-sign-in>
     <amplify-sign-up v-if="displayMap.showSignUp" v-bind:signUpConfig="options.signUpConfig"></amplify-sign-up>
     <amplify-confirm-sign-up v-if="displayMap.showConfirmSignUp" v-bind:confirmSignUpConfig="options.confirmSignUpConfig"></amplify-confirm-sign-up>
     <amplify-confirm-sign-in v-if="displayMap.showConfirmSignIn" v-bind:confirmSignInConfig="options.confirmSignInConfig"></amplify-confirm-sign-in>
@@ -42,6 +43,7 @@ export default {
     options() {
       const defaults = {
         signInConfig: {},
+        newPasswordRequiredConfig: {},
         signUpConfig: {},
         confirmSignUpConfig: {},
         confirmSignInConfig: {},
@@ -55,6 +57,7 @@ export default {
     AmplifyEventBus.$on('localUser', user => {
       this.user = user;
       this.options.signInConfig.username = this.user.username;
+      this.options.newPasswordRequiredConfig.user = this.user;
       this.options.confirmSignInConfig.user = this.user;
       this.options.confirmSignUpConfig.username = this.user.username;
     });
@@ -74,6 +77,7 @@ export default {
     updateDisplayMap: state => {
       return {
         showSignIn: state === 'signedOut',
+        showNewPasswordRequired: state === 'newPasswordRequired',
         showSignUp: state === 'signUp',
         showConfirmSignUp: state === 'confirmSignUp',
         showConfirmSignIn: state === 'confirmSignIn',

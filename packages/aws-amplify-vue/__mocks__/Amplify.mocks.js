@@ -9,6 +9,7 @@ module.exports = {
     verifyCurrentUserAttribute: jest.fn(() => Promise.resolve({ username: 'myTestUsername' })),
     confirmSignIn: jest.fn(() => Promise.resolve({})),
     confirmSignUp: jest.fn(() => Promise.resolve({})),
+    changePassword: jest.fn(() => Promise.resolve({})),
     forgotPassword: jest.fn(() => Promise.resolve({})),
     forgotPasswordSubmit: jest.fn(() => Promise.resolve({})),
     resendSignUp: jest.fn(() => Promise.resolve({})),
